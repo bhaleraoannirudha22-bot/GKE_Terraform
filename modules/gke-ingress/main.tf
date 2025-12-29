@@ -11,7 +11,7 @@ resource "google_compute_global_address" "hello_world_ip" {
   name    = "hello-world-ip"
 }
 
-resource "kubernetes_manifest" "managed_certificate" {
+/* resource "kubernetes_manifest" "managed_certificate" {
   manifest = {
     "apiVersion" = "networking.gke.io/v1"
     "kind"       = "ManagedCertificate"
@@ -24,7 +24,7 @@ resource "kubernetes_manifest" "managed_certificate" {
       ]
     }
   }
-}
+} */
 
 resource "kubernetes_manifest" "deployment" {
   manifest = {
@@ -93,7 +93,7 @@ resource "kubernetes_manifest" "ingress" {
     "metadata" = {
       "name" = "hello-world-ingress"
       "annotations" = {
-        "networking.gke.io/managed-certificates" = kubernetes_manifest.managed_certificate.manifest.metadata.name
+        //"networking.gke.io/managed-certificates" = kubernetes_manifest.managed_certificate.manifest.metadata.name
         "kubernetes.io/ingress.global-static-ip-name" = google_compute_global_address.hello_world_ip.name
       }
     }
